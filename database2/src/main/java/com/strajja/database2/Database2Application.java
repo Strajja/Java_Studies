@@ -1,4 +1,4 @@
-package com.strajja.database;
+package com.strajja.database2;
 
 import lombok.extern.java.Log;
 import org.springframework.boot.CommandLineRunner;
