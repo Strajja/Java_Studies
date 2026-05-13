@@ -4,6 +4,8 @@ import com.strajja.database3.dao.BookDao;
 import com.strajja.database3.domain.Book;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.util.Optional;
+
 public class BookDaoImpl implements BookDao {
 
     private final JdbcTemplate template;
@@ -19,5 +21,9 @@ public class BookDaoImpl implements BookDao {
                 book.getTitle(),
                 book.getAuthorId()
                 );
+    }
+    @Override
+    public Optional<Book> find(String isbn) {
+
     }
 }

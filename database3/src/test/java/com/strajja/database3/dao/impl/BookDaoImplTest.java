@@ -1,8 +1,6 @@
-package com.strajja.database3.dao;
+package com.strajja.database3.dao.impl;
 
 
-import com.strajja.database3.dao.impl.AuthorDaoImpl;
-import com.strajja.database3.dao.impl.BookDaoImpl;
 import com.strajja.database3.domain.Book;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -40,5 +38,13 @@ public class BookDaoImplTest {
                 eq("Nice"),
                 eq(5l)
         );
+
+    }
+    @Test
+    public void testThatFindOneBookGeneratesCorrectSql(){
+
+        bookDao.find("1235-1235-1235");
+
+        verify(jdbcTemplate)
     }
 }
