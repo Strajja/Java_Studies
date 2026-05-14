@@ -1,9 +1,11 @@
 package com.strajja.database3.dao.impl;
 
 
+import com.strajja.database3.TestDataUtil;
 import com.strajja.database3.domain.Book;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -24,11 +26,7 @@ public class BookDaoImplTest {
 
     @Test
     public void testThatCreateBookGeneratesCorrectSql(){
-        Book book = Book.builder()
-                .isbn("1235-1235-1235")
-                .title("Nice")
-                .authorId(5l)
-                .build();
+        Book book = TestDataUtil.createTestBook();
 
         bookDao.create(book);
 
@@ -40,11 +38,16 @@ public class BookDaoImplTest {
         );
 
     }
+
     @Test
     public void testThatFindOneBookGeneratesCorrectSql(){
 
         bookDao.find("1235-1235-1235");
 
-        verify(jdbcTemplate)
+        verify(jdbcTemplate).query(
+                eq("SELECT isbn, title, author_id FROM books WHERE isbn=? LIMIT 1"),
+                ArgumentMatchers.<BookDaoImpl.BookRowMapper>any(),
+                eq("1235-1235-1235")
+        );
     }
 }

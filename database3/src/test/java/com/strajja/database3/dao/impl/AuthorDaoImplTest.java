@@ -1,5 +1,6 @@
 package com.strajja.database3.dao.impl;
 
+import com.strajja.database3.TestDataUtil;
 import com.strajja.database3.domain.Author;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -8,7 +9,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 
 
 import static org.mockito.ArgumentMatchers.any;
@@ -26,11 +26,8 @@ public class AuthorDaoImplTest {
 
     @Test
     public void testThatCreateAuthorGeneratesCorrectSql() {
-        Author author = Author.builder()
-                .id(5l)
-                .name("Strajja")
-                .age(22)
-                .build();
+        Author author = TestDataUtil.createTestAuthor();
+
         authorDao.create(author);
 
         verify(jdbcTemplate).update(
