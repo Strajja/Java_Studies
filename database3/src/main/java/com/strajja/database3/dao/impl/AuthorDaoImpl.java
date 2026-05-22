@@ -36,6 +36,8 @@ public class AuthorDaoImpl implements AuthorDao {
         return results.stream().findFirst();
     }
 
+
+
     public static class AuthorMapper implements RowMapper<Author> {
         @Override
         public Author mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -46,4 +48,23 @@ public class AuthorDaoImpl implements AuthorDao {
                     .build();
         }
     }
+
+    @Override
+    public List<Author> find() {
+        return template.query(
+                "SELECT id, name, age FROM authors",
+                new AuthorMapper()
+        );
+    }
+
+    @Override
+    public void update(long id, Author author) {
+
+        template.update(
+                "UPDATE authors SET id=?, name =?, age=? WHERE id=?",
+                author.getId(), author.getName(), author.getAge(), id
+        );
+    }
+
+
 }

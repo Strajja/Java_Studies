@@ -42,12 +42,22 @@ public class BookDaoImplTest {
     @Test
     public void testThatFindOneBookGeneratesCorrectSql(){
 
-        bookDao.find("1235-1235-1235");
+        bookDao.findOne("1235-1235-1235");
 
         verify(jdbcTemplate).query(
                 eq("SELECT isbn, title, author_id FROM books WHERE isbn=? LIMIT 1"),
                 ArgumentMatchers.<BookDaoImpl.BookRowMapper>any(),
                 eq("1235-1235-1235")
+        );
+    }
+
+    @Test
+    public void testThatFindGeneratesCorrectSql(){
+        bookDao.find();
+
+        verify(jdbcTemplate).query(
+                eq("SELECT isbn, title, authorId FROM books"),
+                ArgumentMatchers.<BookDaoImpl.BookRowMapper>any()
         );
     }
 }

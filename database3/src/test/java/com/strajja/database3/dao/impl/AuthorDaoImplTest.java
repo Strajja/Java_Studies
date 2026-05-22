@@ -1,6 +1,7 @@
 package com.strajja.database3.dao.impl;
 
 import com.strajja.database3.TestDataUtil;
+import com.strajja.database3.dao.impl.AuthorDaoImpl.AuthorMapper;
 import com.strajja.database3.domain.Author;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -42,8 +43,28 @@ public class AuthorDaoImplTest {
 
         verify(jdbcTemplate).query(
                 eq("SELECT id, name, age FROM authors WHERE id=? LIMIT 1"),
-                ArgumentMatchers.<AuthorDaoImpl.AuthorMapper>any(),
+                ArgumentMatchers.<AuthorMapper>any(),
                 eq(5l)
+        );
+    }
+
+    @Test
+    public void testThatFindManyGeneratesCorrectSql() {
+        authorDao.find();
+        verify(jdbcTemplate).query(
+                eq("SELECT id, name, age FROM authors "),
+                ArgumentMatchers.<AuthorDaoImpl.AuthorMapper>any()
+                );
+    }
+
+    @Test
+    public void testThatUpdateGeneratesCorrectSql() {
+        Author author = TestDataUtil.createTestAuthor();
+        authorDao.update(5L, author);
+
+        verify(jdbcTemplate).update(
+                "UPDATE authors SET id=?, name =?, age=? WHERE id=?",
+                5L, "Strajja", 22, 5L
         );
     }
 }

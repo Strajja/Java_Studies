@@ -15,4 +15,7 @@ public class Author {
     private String name;
 
     private Integer age;
+
+    public void update(Author author) {
+    }
 }
