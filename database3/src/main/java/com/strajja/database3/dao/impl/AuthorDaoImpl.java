@@ -66,5 +66,13 @@ public class AuthorDaoImpl implements AuthorDao {
         );
     }
 
+    @Override
+    public void delete(long id) {
+        template.update(
+                "DELETE FROM authors WHERE id=?",
+                id
+        );
+    }
+
 
 }
