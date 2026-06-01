@@ -23,8 +23,16 @@ public class VehicleDaoImpl implements VehicleDao{
     @Override
     public void delete(Long id) {
 
-       jdbcTemplate.update("delete from vehicle where id=?",id);
+       jdbcTemplate.update("DELETE FROM vehicles WHERE id=?",id);
 
+    }
+
+    @Override
+    public void create(Vehicle vehicle) {
+        jdbcTemplate.update(
+                "INSERT INTO vehicles (id, brand, model) VALUES(?, ?, ?)",
+                vehicle.getId(),vehicle.getBrand(), vehicle.getModel()
+        );
     }
 
     @Override
@@ -35,6 +43,15 @@ public class VehicleDaoImpl implements VehicleDao{
                 id
         );
         return result.stream().findFirst();
+    }
+
+    @Override
+    public List<Vehicle> findAll() {
+        List<Vehicle> results=jdbcTemplate.query(
+                "SELECT id, brand, model FROM vehicles",
+                new VehicleMapper()
+        );
+        return results;
     }
 
 

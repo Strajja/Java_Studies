@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS "vehicles";
 
-CREATE TABLE "games"(
+CREATE TABLE "vehicles"(
 
                         id bigserial PRIMARY KEY NOT NULL ,
                         brand varchar(255),
