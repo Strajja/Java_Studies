@@ -9,7 +9,6 @@ public final class TestDataUtil {
 
     public static Author createTestAuthor() {
         return Author.builder()
-
                 .name("Strajja")
                 .age(22)
                 .build();
@@ -17,7 +16,6 @@ public final class TestDataUtil {
 
     public static Author createTestAuthorA() {
         return Author.builder()
-                .id(5l)
                 .name("Strajja")
                 .age(22)
                 .build();
@@ -25,7 +23,6 @@ public final class TestDataUtil {
 
     public static Author createTestAuthorB() {
         return Author.builder()
-                .id(6l)
                 .name("Mica")
                 .age(26)
                 .build();
@@ -33,7 +30,6 @@ public final class TestDataUtil {
 
     public static Author createTestAuthorC() {
         return Author.builder()
-                .id(7l)
                 .name("Tesla")
                 .age(79)
                 .build();
