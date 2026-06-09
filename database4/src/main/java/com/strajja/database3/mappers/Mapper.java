@@ -1,5 +1,8 @@
 package com.strajja.database3.mappers;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public interface Mapper<A,B> {
 
     B mapTo(A a);

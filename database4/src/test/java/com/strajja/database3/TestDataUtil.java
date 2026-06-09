@@ -1,5 +1,7 @@
 package com.strajja.database3;
 
+import com.strajja.database3.domain.dto.AuthorDto;
+import com.strajja.database3.domain.dto.BookDto;
 import com.strajja.database3.domain.entities.AuthorEntity;
 import com.strajja.database3.domain.entities.BookEntity;
 
@@ -60,6 +62,22 @@ public final class TestDataUtil {
         return BookEntity.builder()
                 .isbn("678-678-678")
                 .title("Good")
+                .author(author)
+                .build();
+    }
+
+    public static BookDto createTestBookDto(final AuthorDto author) {
+        return BookDto.builder()
+                .isbn("678-678-678")
+                .title("Good")
+                .author(author)
+                .build();
+    }
+
+    public static BookEntity createTestBookEntity(final AuthorEntity author) {
+        return BookEntity.builder()
+                .isbn("890-890-890")
+                .title("Bad")
                 .author(author)
                 .build();
     }
