@@ -4,6 +4,8 @@ import com.strajja.database4.domain.dto.BookDto;
 import com.strajja.database4.domain.entities.BookEntity;
 import com.strajja.database4.mappers.Mapper;
 import com.strajja.database4.services.BookService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,12 +37,16 @@ public class BookController {
     }
 
     @GetMapping(path="/books")
-    public List<BookDto> getAllBooks(){
-        List<BookEntity> books=bookService.findAll();
-        return books
-                .stream()
-                .map(bookMapper::mapTo)
-                .collect(Collectors.toList());
+    public Page<BookDto> getAllBooks(Pageable pageable){
+        Page<BookEntity> books=bookService.findAll(pageable);
+        return books.map(bookMapper::mapTo);
+
+
+
+//        return books
+//                .stream()
+//                .map(bookMapper::mapTo)
+//                .collect(Collectors.toList());
     }
 
     @GetMapping(path="/books/{isbn}")
@@ -86,5 +92,11 @@ public class BookController {
         BookEntity savedBookEntity=bookService.partialUpdate(isbn,bookEntity);
         BookDto updatedBookDto=bookMapper.mapTo(savedBookEntity);
         return new ResponseEntity<>(updatedBookDto, HttpStatus.OK);
+    }
+
+    @DeleteMapping(path = "/books/{isbn}")
+    public ResponseEntity<BookDto> deleteBook(@PathVariable("isbn") String isbn){
+        bookService.delete(isbn);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

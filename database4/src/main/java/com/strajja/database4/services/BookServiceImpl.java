@@ -2,6 +2,8 @@ package com.strajja.database4.services;
 
 import com.strajja.database4.domain.entities.BookEntity;
 import com.strajja.database4.repositories.BookRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -34,6 +36,11 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public Page<BookEntity> findAll(Pageable pageable) {
+        return bookRepository.findAll(pageable);
+    }
+
+    @Override
     public Optional<BookEntity> findOne(String isbn) {
         return bookRepository.findById(isbn);
     }
@@ -51,6 +58,11 @@ public class BookServiceImpl implements BookService {
             Optional.ofNullable(bookEntity.getTitle()).ifPresent(BookExists::setTitle);
             return bookRepository.save(bookEntity);
         }).orElseThrow(()->new RuntimeException("Book not found"));
+    }
+
+    @Override
+    public void delete(String isbn) {
+        bookRepository.deleteById(isbn);
     }
 
 

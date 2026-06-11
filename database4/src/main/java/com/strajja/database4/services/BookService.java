@@ -2,6 +2,8 @@ package com.strajja.database4.services;
 
 
 import com.strajja.database4.domain.entities.BookEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -14,9 +16,13 @@ public interface BookService {
 
     List<BookEntity> findAll();
 
+    Page<BookEntity> findAll(Pageable pageable);
+
     Optional<BookEntity> findOne(String isbn);
 
     Boolean isExists(String isbn);
 
     BookEntity partialUpdate(String isbn, BookEntity bookEntity);
+
+    void delete(String isbn);
 }
